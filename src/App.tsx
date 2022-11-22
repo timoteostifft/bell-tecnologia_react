@@ -1,13 +1,17 @@
 import { BrowserRouter } from 'react-router-dom'
+import { UsersProvider } from './contexts/UsersContext'
 import Router from './Router'
 
-import './styles/main.css'
+import './styles/tailwind.css'
 
 function App() {
   return (
-    <BrowserRouter>
-      <Router />
-    </BrowserRouter>
+    <UsersProvider>
+      <BrowserRouter>
+          <Router />
+      </BrowserRouter>
+    </UsersProvider>
+
   )
 }
 
