@@ -22,6 +22,8 @@ export interface IUser {
 
 interface UsersContextType {
   users: IUser[]
+  selectedUserId: string
+  updateSelectedUserId: (id: string) => void
 }
 
 interface ProviderProps {
@@ -33,6 +35,12 @@ export const UsersContext = createContext({} as UsersContextType)
 export function UsersProvider({ children }: ProviderProps) {
   const [ users, setUsers ] = useState<IUser[]>([])
 
+  const [ selectedUserId, setSelectedUserId ] = useState<string>('')
+
+  function updateSelectedUserId(id: string) {
+    setSelectedUserId(id)
+  }
+
   const fetchUsers = useCallback(async () => {
     const response = await api.get('/?results=100')
     setUsers(response.data.results)
@@ -43,7 +51,7 @@ export function UsersProvider({ children }: ProviderProps) {
   }, [])
 
   return (
-    <UsersContext.Provider value={{users}}>
+    <UsersContext.Provider value={{ users, selectedUserId, updateSelectedUserId }}>
       {children}
     </UsersContext.Provider>
   )
