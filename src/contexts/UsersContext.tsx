@@ -33,7 +33,15 @@ interface ProviderProps {
 export const UsersContext = createContext({} as UsersContextType)
 
 export function UsersProvider({ children }: ProviderProps) {
-  const [ users, setUsers ] = useState<IUser[]>([])
+  const [ users, setUsers ] = useState<IUser[]>(() => {
+    const storedUsersState = localStorage.getItem('@belltecnologia-users-list')
+
+    if(storedUsersState) {
+      return JSON.parse(storedUsersState)
+    }
+
+    return []
+  })
 
   const [ selectedUserId, setSelectedUserId ] = useState<string>('')
 
@@ -44,11 +52,17 @@ export function UsersProvider({ children }: ProviderProps) {
   const fetchUsers = useCallback(async () => {
     const response = await api.get('/?results=100')
     setUsers(response.data.results)
+
+    const usersStateJSON = JSON.stringify(response.data.results)
+    localStorage.setItem('@belltecnologia-users-list', usersStateJSON)
   }, [])
 
   useEffect(() => {
-    fetchUsers()
+    if(users.length < 1) {
+      fetchUsers()
+    }
   }, [])
+
 
   return (
     <UsersContext.Provider value={{ users, selectedUserId, updateSelectedUserId }}>
