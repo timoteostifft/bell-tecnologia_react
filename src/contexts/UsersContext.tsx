@@ -1,9 +1,12 @@
-import { createContext, useState, useEffect, useCallback } from "react"
+import { createContext, useState, useEffect, useCallback} from "react"
 import { api } from "../lib/axios"
 
 export interface IUser {
   id: {
     value: string
+  }
+  login: {
+    username: string
   }
   picture: {
     thumbnail: string
@@ -17,7 +20,15 @@ export interface IUser {
   location: {
     city: string
     country: string
+    street: {
+      number: number
+      name: string
+    }
   }
+  gender: 'male' | 'female'
+  dob: {
+    age: number
+  },
 }
 
 interface UsersContextType {
