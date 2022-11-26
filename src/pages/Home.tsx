@@ -29,6 +29,7 @@ function Home() {
         {users.map((user) => (
             (user.id.value && 
               <User
+                id={user.id.value}
                 picture={user.picture.thumbnail}
                 name={user.name.first.concat(' ', user.name.last)}
                 email={user.email}

@@ -1,6 +1,7 @@
 import Info from "./Info"
 
 interface Props {
+  id: string
   picture: string
   name: string
   email: string
@@ -9,7 +10,7 @@ interface Props {
   country: string
 }
 
-function User({ picture, name, email, phone, city, country }: Props) {
+function User({ id, picture, name, email, phone, city, country }: Props) {
   return (
     <tr className=" mt-6 text-title  font-poppins rounded-2xl shadow-md">
 
@@ -30,7 +31,7 @@ function User({ picture, name, email, phone, city, country }: Props) {
       </td>
 
       <td className="rounded-br-2xl rounded-tr-2xl bg-white_100 p-4 w-full">
-        <Info />
+        <Info id={id}/>
       </td>
 
     </tr>
