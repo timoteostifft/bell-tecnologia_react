@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import logo from '../assets/logo.png'
 
 function Header () {
@@ -7,7 +8,9 @@ function Header () {
         <img src={logo} alt="" className="h-20 w-20"/>
         <span className='font-poppins font-semibold text-title text-3xl'>Users API</span>
         <nav className='ml-6'>
-          <a href='' className='font-poppins text-title text-lg'>Home</a>
+          <NavLink to={'/'}>
+            <span className='font-poppins text-title text-lg'>Home</span>
+          </NavLink>
           <a href='https://randomuser.me/' className='font-poppins text-title text-lg ml-4'>Docs</a>
         </nav>
       </div>
