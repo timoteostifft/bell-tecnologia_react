@@ -1,5 +1,5 @@
 <h1 align="center">
-  Ewally Node
+  Bell Tecnologia - React
 </h1>
 
 <p align="center">
