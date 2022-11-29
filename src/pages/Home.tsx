@@ -1,11 +1,23 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { UsersContext } from "../contexts/UsersContext"
 
 import User from "../components/User"
+import Pagination from "../components/Pagination"
 
 function Home() {
   const { users } = useContext(UsersContext)
+
+  const [ currentPage, setCurrentPage ] = useState(1)
+  const [ usersPerPage, setUsersPerPage ] = useState(10)
+
+  const indexOfLastUser = currentPage * usersPerPage
+  const indexOfFirstUser = indexOfLastUser - usersPerPage
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser)
  
+  function handlePaginate(pageNumber: number) {
+    setCurrentPage(pageNumber)
+  }
+
   return (
     <>
       <h3 className="font-poppins text-2xl font-semibold text-title drop-shadow-xl">
@@ -26,7 +38,7 @@ function Home() {
           </tr>
         </thead>
         <tbody>
-        {users.map((user) => (
+        {currentUsers.map((user) => (
             (user.id.value && 
               <User
                 id={user.id.value}
@@ -42,6 +54,12 @@ function Home() {
           ))}
         </tbody>
       </table>
+
+      <Pagination 
+        usersPerPage={usersPerPage}
+        totalUsers={users.length}
+        paginate={handlePaginate}
+      />
     </>
   )
 }
